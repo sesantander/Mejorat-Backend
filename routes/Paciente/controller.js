@@ -31,7 +31,18 @@ const getPaciente = async (req, res, next) => {
   }
 };
 
+const getAllPaciente = async (req, res, next) => {
+  try {
+    const paciente = await Paciente.findAll();
+    if (!paciente) return res.status(400).json({ Error: 'Pacientes empty' });
+    return res.status(200).json({ paciente });
+  } catch (e) {
+    next(e);
+  }
+};
+
 module.exports = {
   createPaciente,
   getPaciente,
+  getAllPaciente,
 };

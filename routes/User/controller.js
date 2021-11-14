@@ -14,7 +14,7 @@ const signup = async (req, res, next) => {
         username: req.body.username,
         name: req.body.name,
         email: req.body.email,
-        role: '',
+        role: req.body.role,
         password: hash,
       }).then((user) => res.status(200).json({ user }))
         .catch((e) => res.status(400).json({ e }));
@@ -52,6 +52,16 @@ const getUser = async (req, res, next) => {
   }
 };
 
+const getAllUsers = async (req, res, next) => {
+  try {
+    const user = await User.findAll();
+    if (!user) return res.status(400).json({ Error: 'Users not found' });
+    return res.status(200).json({ user });
+  } catch (e) {
+    next(e);
+  }
+};
+
 const updateUser = async (req, res, next) => {
   try {
     const fieldsToUpdate = removeEmpty(req.body);
@@ -83,4 +93,5 @@ module.exports = {
   getUser,
   updateUser,
   deleteUser,
+  getAllUsers,
 };

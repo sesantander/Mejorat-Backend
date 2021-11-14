@@ -31,7 +31,18 @@ const getPsicologo = async (req, res, next) => {
   }
 };
 
+const getAllPsicologo = async (req, res, next) => {
+  try {
+    const psicologo = await Psicologo.findAll();
+    if (!psicologo) return res.status(400).json({ Error: 'Psicologos empty' });
+    return res.status(200).json({ psicologo });
+  } catch (e) {
+    next(e);
+  }
+};
+
 module.exports = {
   createPsicologo,
   getPsicologo,
+  getAllPsicologo,
 };

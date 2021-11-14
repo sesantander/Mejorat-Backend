@@ -23,7 +23,7 @@ const createCita = async (req, res, next) => {
 
 const confirmarCita = async (req, res, next) => {
   try {
-    const cita = await Cita.findOne({ where: { id: req.body.cita_id } });
+    const cita = await Cita.findOne({ where: { cita_id: req.params.id } });
     if (!cita) return res.status(400).json({ Error: 'Cita not found' });
 
     await cita.update({ estado: 'CONFIRMADA' });
@@ -35,7 +35,7 @@ const confirmarCita = async (req, res, next) => {
 
 const aplazarCita = async (req, res, next) => {
   try {
-    const cita = await Cita.findOne({ where: { id: req.body.cita_id } });
+    const cita = await Cita.findOne({ where: { cita_id: req.params.id } });
     if (!cita) return res.status(400).json({ Error: 'Cita not found' });
 
     await cita.update({ estado: 'APLAZADO', fecha: req.body.fecha });
@@ -47,7 +47,7 @@ const aplazarCita = async (req, res, next) => {
 
 const cancelarCita = async (req, res, next) => {
   try {
-    const cita = await Cita.findOne({ where: { id: req.body.cita_id } });
+    const cita = await Cita.findOne({ where: { cita_id: req.params.id } });
     if (!cita) return res.status(400).json({ Error: 'Cita not found' });
 
     await cita.update({ estado: 'CANCELADA' });
@@ -59,10 +59,32 @@ const cancelarCita = async (req, res, next) => {
 
 const completarCita = async (req, res, next) => {
   try {
-    const cita = await Cita.findOne({ where: { id: req.body.cita_id } });
+    const cita = await Cita.findOne({ where: { cita_id: req.params.id } });
     if (!cita) return res.status(400).json({ Error: 'Cita not found' });
 
     await cita.update({ estado: 'COMPLETADA' });
+    return res.status(200).json({ data: { cita } });
+  } catch (e) {
+    next(e);
+  }
+};
+
+const getAllCitas = async (req, res, next) => {
+  try {
+    const cita = await Cita.findAll();
+    if (!cita) return res.status(400).json({ Error: 'Citas not found' });
+
+    return res.status(200).json({ data: { cita } });
+  } catch (e) {
+    next(e);
+  }
+};
+
+const getAllCitasFromPaciente = async (req, res, next) => {
+  try {
+    const cita = await Cita.findAll({ where: { paciente_id: req.params.paciente_id } });
+    if (!cita) return res.status(400).json({ Error: 'Citas not found' });
+
     return res.status(200).json({ data: { cita } });
   } catch (e) {
     next(e);
@@ -75,4 +97,6 @@ module.exports = {
   aplazarCita,
   cancelarCita,
   completarCita,
+  getAllCitas,
+  getAllCitasFromPaciente,
 };
