@@ -19,6 +19,10 @@ const Psicologo = sequelize.define('Psicologo', {
     type: DataTypes.DOUBLE,
     allowNull: true,
   },
+  especializacion: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 
 }, {
   timestamps: true,

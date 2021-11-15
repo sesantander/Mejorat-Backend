@@ -5,7 +5,7 @@ const Psicologo = require('../../database/models/psicologo.model');
 
 const createPsicologo = async (req, res, next) => {
   const {
-    tarifa_por_hora, certificado_estudio, horas_trabajadas, calificacion, UserId,
+    tarifa_por_hora, certificado_estudio, horas_trabajadas, calificacion, especializacion, UserId,
   } = { ...req.body };
   try {
     await Psicologo.create({
@@ -13,6 +13,7 @@ const createPsicologo = async (req, res, next) => {
       certificado_estudio,
       horas_trabajadas,
       calificacion,
+      especializacion,
       UserId,
     }).then((psicologo) => res.status(200).json({ data: { psicologo } }))
       .catch((e) => res.status(400).json({ e }));

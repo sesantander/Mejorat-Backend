@@ -91,6 +91,17 @@ const getAllCitasFromPaciente = async (req, res, next) => {
   }
 };
 
+const getAllCitasFromPsicologo = async (req, res, next) => {
+  try {
+    const cita = await Cita.findAll({ where: { psicologo_id: req.params.psicologo_id } });
+    if (!cita) return res.status(400).json({ Error: 'Citas not found' });
+
+    return res.status(200).json({ data: { cita } });
+  } catch (e) {
+    next(e);
+  }
+};
+
 module.exports = {
   createCita,
   confirmarCita,
@@ -99,4 +110,5 @@ module.exports = {
   completarCita,
   getAllCitas,
   getAllCitasFromPaciente,
+  getAllCitasFromPsicologo,
 };

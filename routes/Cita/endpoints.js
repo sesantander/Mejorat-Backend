@@ -3,6 +3,7 @@ const controller = require('./controller');
 
 router.get('/', controller.getAllCitas);
 router.get('/:paciente_id', controller.getAllCitasFromPaciente);
+router.get('/psicologo/:psicologo_id', controller.getAllCitasFromPsicologo);
 router.post('/create', controller.createCita);
 router.post('/confirmarCita/:id', controller.confirmarCita);
 router.post('/aplazarCita/:id', controller.aplazarCita);
