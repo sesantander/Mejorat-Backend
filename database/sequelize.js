@@ -4,14 +4,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-let sequelizeConfig;
-if (process.env.NODE_ENV === 'production') {
-  sequelizeConfig = require('./config').production;
-} else if (process.env.NODE_ENV === 'test') {
-  sequelizeConfig = require('./config').test;
-} else {
-  sequelizeConfig = require('./config').development;
-}
+const sequelizeConfig = require('./config').development;
 
 const sequelize = new Sequelize(
   sequelizeConfig.database,
