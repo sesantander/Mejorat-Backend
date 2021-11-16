@@ -10,12 +10,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8010;
 
-// const security = require('./utilities/security')
-
 app.use(cors());
 app.use(express.json());
 
-// app.use(security);
 const pacienteRouter = require('./routes/Paciente/endpoints');
 const psicologoRouter = require('./routes/Psicologo/endpoints');
 const userRouter = require('./routes/User/endpoints');
