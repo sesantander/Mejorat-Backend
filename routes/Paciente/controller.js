@@ -2,6 +2,7 @@
 /* eslint-disable consistent-return */
 
 const Paciente = require('../../database/models/paciente.model');
+const User = require('../../database/models/user.model');
 
 const createPaciente = async (req, res, next) => {
   const {
@@ -23,7 +24,10 @@ const createPaciente = async (req, res, next) => {
 
 const getPaciente = async (req, res, next) => {
   try {
-    const paciente = await Paciente.findOne({ where: { UserId: req.params.UserId } });
+    const paciente = await Paciente.findOne({
+      where: { UserId: req.params.UserId },
+      include: { model: User },
+    });
     if (!paciente) return res.status(400).json({ Error: 'Paciente not found' });
     return res.status(200).json({ paciente });
   } catch (e) {
@@ -33,7 +37,7 @@ const getPaciente = async (req, res, next) => {
 
 const getAllPaciente = async (req, res, next) => {
   try {
-    const paciente = await Paciente.findAll();
+    const paciente = await Paciente.findAll({ include: { model: User } });
     if (!paciente) return res.status(400).json({ Error: 'Pacientes empty' });
     return res.status(200).json({ paciente });
   } catch (e) {

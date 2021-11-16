@@ -15,6 +15,8 @@ const signup = async (req, res, next) => {
         name: req.body.name,
         email: req.body.email,
         role: req.body.role,
+        foto: req.body.foto,
+        descripcion: req.body.descripcion,
         password: hash,
       }).then((user) => res.status(200).json({ user }))
         .catch((e) => res.status(400).json({ e }));

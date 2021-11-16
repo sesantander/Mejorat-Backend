@@ -16,7 +16,15 @@ const Cita = sequelize.define('Cita', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  duracion: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
   estado: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  descripcion: {
     type: DataTypes.STRING,
     allowNull: true,
   },

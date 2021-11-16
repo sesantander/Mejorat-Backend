@@ -39,6 +39,14 @@ const User = sequelize.define('User', {
     type: DataTypes.INTEGER,
     unique: true,
   },
+  foto: {
+    type: DataTypes.STRING,
+    unique: true,
+  },
+  descripcion: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 
 }, {
   timestamps: true,

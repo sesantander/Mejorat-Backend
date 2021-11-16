@@ -5,13 +5,15 @@ const Cita = require('../../database/models/cita.model');
 
 const createCita = async (req, res, next) => {
   const {
-    fecha, lugar, psicologo_id, paciente_id,
+    fecha, lugar, psicologo_id, paciente_id, duracion, descripcion,
   } = { ...req.body };
   try {
     await Cita.create({
       fecha,
       lugar,
       estado: 'PENDIENTEPAGO',
+      duracion,
+      descripcion,
       psicologo_id,
       paciente_id,
     }).then((user) => res.status(200).json({ data: { user } }))
