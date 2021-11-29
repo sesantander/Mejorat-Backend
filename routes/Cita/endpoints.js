@@ -9,5 +9,6 @@ router.post('/confirmarCita/:id', controller.confirmarCita);
 router.post('/aplazarCita/:id', controller.aplazarCita);
 router.post('/cancelarCita/:id', controller.cancelarCita);
 router.post('/completarCita/:id', controller.completarCita);
+router.post('/:id', controller.updateCita);
 
 module.exports = router;

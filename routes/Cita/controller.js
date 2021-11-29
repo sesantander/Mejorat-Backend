@@ -2,6 +2,7 @@
 /* eslint-disable consistent-return */
 
 const Cita = require('../../database/models/cita.model');
+const { removeEmpty } = require('../../utilities/utilities');
 
 const createCita = async (req, res, next) => {
   const {
@@ -104,6 +105,20 @@ const getAllCitasFromPsicologo = async (req, res, next) => {
   }
 };
 
+const updateCita = async (req, res, next) => {
+  try {
+    const fieldsToUpdate = removeEmpty(req.body);
+
+    const cita = await Cita.findOne({ where: { cita_id: req.params.id } });
+    if (!cita) return res.status(400).json({ Error: 'Cita not found' });
+
+    await cita.update(fieldsToUpdate);
+    return res.status(200).json({ cita });
+  } catch (e) {
+    next(e);
+  }
+};
+
 module.exports = {
   createCita,
   confirmarCita,
@@ -113,4 +128,5 @@ module.exports = {
   getAllCitas,
   getAllCitasFromPaciente,
   getAllCitasFromPsicologo,
+  updateCita,
 };

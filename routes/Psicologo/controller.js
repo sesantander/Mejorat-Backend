@@ -3,6 +3,7 @@
 
 const Psicologo = require('../../database/models/psicologo.model');
 const User = require('../../database/models/user.model');
+const { removeEmpty } = require('../../utilities/utilities');
 
 const createPsicologo = async (req, res, next) => {
   const {
@@ -46,8 +47,23 @@ const getAllPsicologo = async (req, res, next) => {
   }
 };
 
+const updatePsicologo = async (req, res, next) => {
+  try {
+    const fieldsToUpdate = removeEmpty(req.body);
+
+    const psicologo = await Psicologo.findOne({ where: { id: req.params.id } });
+    if (!psicologo) return res.status(400).json({ Error: 'Psicologo not found' });
+
+    await psicologo.update(fieldsToUpdate);
+    return res.status(200).json({ psicologo });
+  } catch (e) {
+    next(e);
+  }
+};
+
 module.exports = {
   createPsicologo,
   getPsicologo,
   getAllPsicologo,
+  updatePsicologo,
 };
